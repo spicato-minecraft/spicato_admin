@@ -1,0 +1,17 @@
+{
+	"schemaVersion": 1,
+	"id": "spicato_admin_test",
+	"version": "${version}",
+	"name": "Spicato Admin Game Tests",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-gametest": [
+			"spicato_admin.gametest.ModLoadsGameTest"
+		]
+	},
+	"depends": {
+		"spicato_admin": "*",
+		"fabric-api": "*",
+		"minecraft": "~1.21.11"
+	}
+}

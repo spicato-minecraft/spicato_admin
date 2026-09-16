@@ -1,0 +1,15 @@
+{
+	"key.spicato_admin.open_play": "Pack Admin",
+	"spicato_admin.screen.play": "Pack Admin",
+	"spicato_admin.button.pack_admin": "Pack Admin",
+	"spicato_admin.play.placeholder": "Knobs for %s land in a later phase.",
+	"spicato_admin.play.empty": "No play knobs for this mod yet.",
+	"spicato_admin.debug.empty": "No debug knobs for this mod yet.",
+	"spicato_admin.page": "Page",
+	"spicato_admin.page.play": "Play",
+	"spicato_admin.page.debug": "Debug",
+	"spicato_admin.button.apply": "Apply",
+	"spicato_admin.apply.saved": "Wrote pack config to %s",
+	"spicato_admin.apply.saved_dev": "Wrote instance config and UAT snapshot %s",
+	"spicato_admin.button.reset_mod": "Reset to defaults"
+}

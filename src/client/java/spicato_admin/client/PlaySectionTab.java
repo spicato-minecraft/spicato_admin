@@ -9,6 +9,7 @@ import net.minecraft.client.gui.components.ScrollableLayout;
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.components.tabs.Tab;
 import net.minecraft.client.gui.layouts.FrameLayout;
+import net.minecraft.client.gui.layouts.Layout;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.network.chat.Component;
@@ -82,6 +83,11 @@ final class PlaySectionTab implements Tab {
 	@Override
 	public void visitChildren(Consumer<AbstractWidget> consumer) {
 		this.root.visitWidgets(consumer);
+	}
+
+	@Override
+	public Layout getLayout() {
+		return this.root;
 	}
 
 	@Override

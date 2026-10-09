@@ -25,7 +25,7 @@ public class SpicatoAdminClient implements ClientModInitializer {
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			while (openPlay.consumeClick()) {
-				AdminScreens.openPlay(client, client.screen);
+				AdminScreens.openPlay(client, client.gui.screen());
 			}
 		});
 

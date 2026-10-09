@@ -15,9 +15,9 @@ public final class AdminScreens {
 		if (!isLocalSingleplayer(client)) {
 			return;
 		}
-		if (client.screen instanceof PlayAdminScreen) {
+		if (client.gui.screen() instanceof PlayAdminScreen) {
 			return;
 		}
-		client.setScreen(new PlayAdminScreen(lastScreen));
+		client.gui.setScreen(new PlayAdminScreen(lastScreen));
 	}
 }

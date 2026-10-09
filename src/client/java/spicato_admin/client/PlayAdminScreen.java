@@ -3,6 +3,7 @@ package spicato_admin.client;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.components.tabs.MenuTabBar;
 import net.minecraft.client.gui.components.tabs.Tab;
 import net.minecraft.client.gui.components.tabs.TabManager;
 import net.minecraft.client.gui.components.tabs.TabNavigationBar;
@@ -53,7 +54,7 @@ public class PlayAdminScreen extends Screen {
 				this.rebuildWidgets();
 			});
 		}
-		this.tabNavigationBar = TabNavigationBar.builder(this.tabManager, this.width).addTabs(tabs).build();
+		this.tabNavigationBar = MenuTabBar.builder(this.tabManager, this.width).addTabs(tabs).build();
 		this.addRenderableWidget(this.tabNavigationBar);
 
 		this.layout = new HeaderAndFooterLayout(this, 0, 36);
@@ -118,8 +119,7 @@ public class PlayAdminScreen extends Screen {
 		if (this.tabNavigationBar == null || this.layout == null || this.tabManager == null) {
 			return;
 		}
-		this.tabNavigationBar.updateWidth(this.width);
-		this.tabNavigationBar.arrangeElements();
+		this.tabNavigationBar.arrangeElements(this.width);
 		int tabBottom = this.tabNavigationBar.getRectangle().bottom();
 		this.tabManager.setTabArea(new ScreenRectangle(
 				0,
@@ -132,6 +132,6 @@ public class PlayAdminScreen extends Screen {
 
 	@Override
 	public void onClose() {
-		this.minecraft.setScreen(this.lastScreen);
+		this.minecraft.gui.setScreen(this.lastScreen);
 	}
 }

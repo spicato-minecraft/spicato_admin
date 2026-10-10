@@ -43,7 +43,13 @@ public class PlayAdminScreen extends Screen {
 	@Override
 	protected void init() {
 		this.tabManager = new TabManager(this::addRenderableWidget, this::removeWidget);
-		List<AdminSection> sections = AdminCatalog.SECTIONS;
+		List<AdminSection> sections = AdminCatalog.visibleSections(
+				this.page,
+				FabricLoader.getInstance()::isModLoaded
+		);
+		if (this.selectedTab >= sections.size()) {
+			this.selectedTab = 0;
+		}
 		Tab[] tabs = new Tab[sections.size()];
 		for (int i = 0; i < sections.size(); i++) {
 			final int index = i;

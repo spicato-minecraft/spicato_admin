@@ -131,8 +131,10 @@ final class ShippedDefaults {
 		zoom.addProperty("level_1_fov", 50.0);
 		zoom.addProperty("level_2_fov", 16.0);
 		zoom.addProperty("level_3_fov", 6.0);
-		zoom.addProperty("look_curve", 0.5);
+		zoom.addProperty("look_curve", 0.4);
 		zoom.addProperty("look_speed", 1.0);
+		zoom.addProperty("look_min", 1.4);
+		zoom.addProperty("look_max", 1.4);
 		root.add("zoom", zoom);
 		return root;
 	}

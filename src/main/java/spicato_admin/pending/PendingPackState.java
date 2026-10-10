@@ -91,7 +91,10 @@ public final class PendingPackState {
 	public void resetMod(String modId) {
 		JsonObject shipped = ShippedDefaults.forMod(modId);
 		JsonObject current = json(modId);
-		for (AdminKnob knob : AdminCatalog.knobs(AdminPage.PLAY, modId)) {
+		for (AdminKnob knob : AdminCatalog.knobs()) {
+			if (!knob.modId().equals(modId)) {
+				continue;
+			}
 			if (knob.widget() == AdminWidget.CURVE) {
 				copyIfPresent(shipped, current, knob.key() + ".peak");
 				copyIfPresent(shipped, current, knob.key() + ".min");

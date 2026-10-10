@@ -8,7 +8,8 @@ public final class AdminScreens {
 	}
 
 	public static boolean isLocalSingleplayer(Minecraft client) {
-		return client != null && client.hasSingleplayerServer();
+		// isSingleplayer is false once the integrated server is opened to LAN.
+		return client != null && client.isSingleplayer();
 	}
 
 	public static void openPlay(Minecraft client, Screen lastScreen) {

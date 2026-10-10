@@ -33,6 +33,9 @@ class AdminCatalogTest {
 		assertTrue(playKeys.contains("presets.set_a"));
 		assertTrue(playKeys.contains("species.oak.apical_persist"));
 		assertTrue(playKeys.contains("species.cherry.divergence"));
+		assertTrue(playKeys.contains("zoom.look_speed"));
+		assertTrue(playKeys.contains("zoom.look_min"));
+		assertTrue(playKeys.contains("zoom.look_max"));
 		assertTrue(playKeys.stream().noneMatch(key -> key.contains("uat_glow")));
 
 		Set<String> debugKeys = keys(AdminPage.DEBUG);
@@ -43,8 +46,6 @@ class AdminCatalogTest {
 						"zoom.level_1_fov",
 						"zoom.level_2_fov",
 						"zoom.level_3_fov",
-						"zoom.look_curve",
-						"zoom.look_speed",
 						"writes_per_tick",
 						"growth_radius_chunks"
 				),
@@ -52,8 +53,33 @@ class AdminCatalogTest {
 		);
 		assertTrue(AdminCatalog.knobs(AdminPage.DEBUG, AdminCatalog.SIZE).isEmpty());
 		assertTrue(AdminCatalog.knobs(AdminPage.DEBUG, AdminCatalog.TNT).isEmpty());
-		assertTrue(AdminCatalog.knobs(AdminPage.PLAY, AdminCatalog.SPYGLASS).isEmpty());
-		assertEquals(5, AdminCatalog.knobs(AdminPage.DEBUG, AdminCatalog.SPYGLASS).size());
+		assertEquals(4, AdminCatalog.knobs(AdminPage.PLAY, AdminCatalog.SPYGLASS).size());
+		assertEquals(3, AdminCatalog.knobs(AdminPage.DEBUG, AdminCatalog.SPYGLASS).size());
+	}
+
+	@Test
+	void visibleSectionsRequireLoadedModAndKnobsOnThatPage() {
+		var pack = java.util.Set.of(
+				"mob_loot_rebalance",
+				"structure_loot_rebalance",
+				"mob_size_diversity",
+				"useful_tnt",
+				"functional_spyglass"
+		);
+		assertEquals(
+				java.util.List.of(
+						AdminCatalog.MOB_LOOT,
+						AdminCatalog.STRUCTURE,
+						AdminCatalog.SIZE,
+						AdminCatalog.TNT,
+						AdminCatalog.SPYGLASS
+				),
+				AdminCatalog.visibleSections(AdminPage.PLAY, pack::contains).stream().map(AdminSection::modId).toList()
+		);
+		assertEquals(
+				java.util.List.of(AdminCatalog.MOB_LOOT, AdminCatalog.SPYGLASS),
+				AdminCatalog.visibleSections(AdminPage.DEBUG, pack::contains).stream().map(AdminSection::modId).toList()
+		);
 	}
 
 	@Test

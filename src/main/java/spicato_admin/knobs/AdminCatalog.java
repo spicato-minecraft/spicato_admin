@@ -2,6 +2,7 @@ package spicato_admin.knobs;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * V1 knob list. Screens (Phase 3+) should read this table rather than inventing
@@ -54,13 +55,15 @@ public final class AdminCatalog {
 			AdminKnob.checkbox(TNT, AdminPage.PLAY, "dropProtectionEnabled", "Drop protection"),
 			AdminKnob.checkbox(TNT, AdminPage.PLAY, "trailDropEnabled", "Trail drop"),
 			AdminKnob.slider(TNT, AdminPage.PLAY, "trailDropFuseTicks", "Trail fuse ticks", 1.0, 200.0, 1.0),
+			AdminKnob.slider(SPYGLASS, AdminPage.PLAY, "zoom.look_speed", "Look speed", 0.25, 2.0, 0.05),
+			AdminKnob.slider(SPYGLASS, AdminPage.PLAY, "zoom.look_curve", "Look curve", 0.0, 1.0, 0.05),
+			AdminKnob.slider(SPYGLASS, AdminPage.PLAY, "zoom.look_min", "Look min (low zoom)", 0.05, 3.0, 0.05),
+			AdminKnob.slider(SPYGLASS, AdminPage.PLAY, "zoom.look_max", "Look max (high zoom)", 0.05, 3.0, 0.05),
 			AdminKnob.checkbox(MOB_LOOT, AdminPage.DEBUG, "elites.uat_glow", "UAT glow"),
 			AdminKnob.slider(MOB_LOOT, AdminPage.DEBUG, "elites.particle_interval_ticks", "Particle interval ticks", 0.0, 100.0, 1.0),
 			AdminKnob.slider(SPYGLASS, AdminPage.DEBUG, "zoom.level_1_fov", "Level 1 FOV", 1.0, 70.0, 0.5),
 			AdminKnob.slider(SPYGLASS, AdminPage.DEBUG, "zoom.level_2_fov", "Level 2 FOV", 1.0, 70.0, 0.5),
-			AdminKnob.slider(SPYGLASS, AdminPage.DEBUG, "zoom.level_3_fov", "Level 3 FOV", 1.0, 70.0, 0.5),
-			AdminKnob.slider(SPYGLASS, AdminPage.DEBUG, "zoom.look_curve", "Look curve", 0.0, 1.0, 0.05),
-			AdminKnob.slider(SPYGLASS, AdminPage.DEBUG, "zoom.look_speed", "Look speed", 0.25, 2.0, 0.05)
+			AdminKnob.slider(SPYGLASS, AdminPage.DEBUG, "zoom.level_3_fov", "Level 3 FOV", 1.0, 70.0, 0.5)
 	);
 
 	private AdminCatalog() {
@@ -70,6 +73,17 @@ public final class AdminCatalog {
 		List<AdminKnob> knobs = new ArrayList<>(List.of(head));
 		knobs.addAll(LivingTreesKnobs.all());
 		return List.copyOf(knobs);
+	}
+
+	/**
+	 * Tabs for one admin page: the gameplay JAR is loaded, and this page has at
+	 * least one knob. Unloaded mods and empty Play/Debug halves stay off the bar.
+	 */
+	public static List<AdminSection> visibleSections(AdminPage page, Predicate<String> isModLoaded) {
+		return SECTIONS.stream()
+				.filter(section -> isModLoaded.test(section.modId()))
+				.filter(section -> !knobs(page, section.modId()).isEmpty())
+				.toList();
 	}
 
 	public static List<AdminKnob> knobs() {

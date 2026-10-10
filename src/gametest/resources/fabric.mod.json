@@ -7,6 +7,9 @@
 	"entrypoints": {
 		"fabric-gametest": [
 			"spicato_admin.gametest.ModLoadsGameTest"
+		],
+		"fabric-client-gametest": [
+			"spicato_admin.clientgametest.PlayAdminClientGameTest"
 		]
 	},
 	"depends": {

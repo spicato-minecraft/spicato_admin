@@ -29,9 +29,19 @@ fabricApi {
 		createSourceSet = true
 		modId = "spicato_admin_test"
 		enableGameTests = true
-		enableClientGameTests = false
+		enableClientGameTests = true
 		eula = true
 	}
+}
+
+// Client GameTests live in the gametest source set. Loom runs them with the client, but that
+// source set does not otherwise see client-only Minecraft or this mod's client classes.
+sourceSets.named("gametest") {
+	def client = sourceSets.named("client").get()
+	compileClasspath += client.output
+	compileClasspath += client.compileClasspath
+	runtimeClasspath += client.output
+	runtimeClasspath += client.runtimeClasspath
 }
 
 dependencies {
@@ -42,6 +52,8 @@ dependencies {
 
 	testImplementation "net.fabricmc:fabric-loader-junit:${project.loader_version}"
 	testImplementation "org.mockito:mockito-core:5.14.2"
+	// Real useful_tnt classes so UsefulTntReloadResolves can resolve UsefulTntConfig.reload.
+	testRuntimeOnly files("${rootDir}/../cheaper_tnt/useful_tnt/build/classes/java/main")
 }
 
 test {

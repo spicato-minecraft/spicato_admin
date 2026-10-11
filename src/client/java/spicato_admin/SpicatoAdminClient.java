@@ -1,5 +1,6 @@
 package spicato_admin;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
@@ -9,7 +10,6 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.network.chat.Component;
-import org.lwjgl.glfw.GLFW;
 import spicato_admin.client.AdminScreens;
 
 public class SpicatoAdminClient implements ClientModInitializer {
@@ -19,7 +19,7 @@ public class SpicatoAdminClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		openPlay = KeyMappingHelper.registerKeyMapping(new KeyMapping(
 				"key.spicato_admin.open_play",
-				GLFW.GLFW_KEY_P,
+				InputConstants.KEY_P,
 				KeyMapping.Category.MISC
 		));
 
